@@ -296,6 +296,7 @@ function stateAdvance(){
         console.log('new pattern = ' + selectedPattern)
         state = 1
         c.clearRect(0, 0, canvas.width, canvas.height);
+        drawlines()
         drawPattern()
 
     }
@@ -318,7 +319,31 @@ const right = new Clone(x+ 150, y, 30, 'blue')
 
 const topright = new Clone(x + 100, y - 100, 30, 'blue')
 
+function drawLine(ctx, begin, end, stroke = 'black', width = 1) {
+    if (stroke) {
+        ctx.strokeStyle = stroke;
+    }
 
+    if (width) {
+        ctx.lineWidth = width;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(...begin);
+    ctx.lineTo(...end);
+    ctx.stroke();
+}
+
+function drawlines(){
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2, canvas.height/2 -150], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 - 100, canvas.height/2 -100], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 -150, canvas.height/2], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 -100, canvas.height/2 +100], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2, canvas.height/2 +150], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +100, canvas.height/2 +100], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +150, canvas.height/2 ], 'black', 5)
+    drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +100, canvas.height/2 -100], 'black', 5)
+}
 
 addEventListener('click', (event) =>
     {
@@ -329,3 +354,4 @@ addEventListener('click', (event) =>
 })
 
 draw1()
+drawlines()
