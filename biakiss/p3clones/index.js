@@ -302,21 +302,21 @@ function stateAdvance(){
 }
 
 
-const topp = new Clone(x, y - canvas.height/7, 30, 'blue')
+const topp = new Clone(x, y - 150, 30, 'blue')
 
-const topleft = new Clone(x - canvas.width/16, y - canvas.height/9, 30, 'blue')
+const topleft = new Clone(x - 100, y - 100, 30, 'blue')
 
-const left = new Clone(x- canvas.width/11, y, 30, 'blue')
+const left = new Clone(x- 150, y, 30, 'blue')
 
-const botleft = new Clone(x - canvas.width/16, y + canvas.height/9, 30, 'blue')
+const botleft = new Clone(x - 100, y + 100, 30, 'blue')
 
-const bot = new Clone(x, y + canvas.height/7, 30, 'blue')
+const bot = new Clone(x, y + 150, 30, 'blue')
 
-const botright = new Clone(x + canvas.width/16, y + canvas.height/9, 30, 'blue')
+const botright = new Clone(x + 100, y + 100, 30, 'blue')
 
-const right = new Clone(x+ canvas.width/11, y, 30, 'blue')
+const right = new Clone(x+ 150, y, 30, 'blue')
 
-const topright = new Clone(x + canvas.width/16, y - canvas.height/9, 30, 'blue')
+const topright = new Clone(x + 100, y - 100, 30, 'blue')
 
 
 
