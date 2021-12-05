@@ -5,6 +5,12 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
+const currentEl = document.querySelector('#current')
+const maxEl = document.querySelector('#max')
+console.log(currentEl)
+console.log(maxEl)
+
+
 class Clone{
     constructor(x, y, radius, color) {
         this.x = x
@@ -278,6 +284,37 @@ function drawEndPattern(){
     }
 }
 
+function wasRightAnswer(x, y){
+    var dist = 1000.0
+    if(selectedPattern == 1){
+        dist = Math.hypot(x - topleft.x, y - topleft.y)  
+    }else if(selectedPattern == 2){
+        dist = Math.hypot(x - topp.x, y - topp.y)  
+    }else if (selectedPattern == 3){
+        dist = Math.hypot(x - bot.x, y - bot.y)  
+    }else if (selectedPattern == 4){
+        dist = Math.hypot(x - botleft.x, y - botleft.y)  
+    }else if (selectedPattern == 5 || selectedPattern == 6){
+        dist = Math.hypot(x - botright.x, y - botright.y)  
+    }else if (selectedPattern == 7){
+        dist = Math.hypot(x - left.x, y - left.y)  
+    }else if (selectedPattern == 8){
+        dist = Math.hypot(x - topright.x, y - topright.y)  
+    }
+
+    if(dist <= 30){
+            return true
+    }else if (selectedPattern == 8){
+        dist = Math.hypot(x - right.x, y - right.y)
+    }
+    if(dist < 30){
+            return true
+    }
+
+    return false
+
+}
+
 
 
 function stateAdvance(){
@@ -285,6 +322,19 @@ function stateAdvance(){
     console.log(state)
     if(state == 2){
         drawEndPattern()
+        let h = wasRightAnswer(clientClickX, clientClickY)
+        if(h){
+            correctCount++
+            if(correctCount > max){
+                max = correctCount
+            }
+            
+        }else{
+            correctCount = 0
+        }
+        currentEl.innerHTML = correctCount
+        maxEl.innerHTML = max
+        console.log("in a row: " + correctCount)
     }else if(state >= 3){
         console.log('load next pattern')
         var pattern = Math.floor(Math.random() * 8) + 1;
@@ -343,11 +393,22 @@ function drawlines(){
     drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +100, canvas.height/2 +100], 'black', 5)
     drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +150, canvas.height/2 ], 'black', 5)
     drawLine(c, [canvas.width/2, canvas.height/2], [canvas.width/2 +100, canvas.height/2 -100], 'black', 5)
+
+
 }
+
+var clientClickX = 0
+var clientClickY = 0
+var correctCount = 0
+var max = 0
 
 addEventListener('click', (event) =>
     {
     const clone2 = new Clone(event.clientX, event.clientY, 5, 'red')
+    
+    clientClickX = event.clientX
+    clientClickY = event.clientY
+    
 
     clone2.draw()
     stateAdvance()
